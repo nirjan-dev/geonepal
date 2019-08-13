@@ -12,16 +12,14 @@ const ContactSection = styled.section`
 function Contact() {
   const data = useStaticQuery(graphql`
     {
-      site {
-        siteMetadata {
-          twitterUsername
-          facebookUsername
-          instagramUsername
-          address
-          phone
-          email
-          mapUrl
-        }
+      sanitySettings {
+        twitterUsername
+        facebookUsername
+        instagramUsername
+        address
+        phone
+        email
+        mapUrl
       }
     }
   `);
@@ -33,11 +31,11 @@ function Contact() {
           <Box m={[2, 3]} p={[3, 4]} width={[1, 1 / 3]}>
             <ContactInfo>
               <h4>Get in touch</h4>
-              <p>{data.site.siteMetadata.phone}</p>
-              <p>{data.site.siteMetadata.email}</p>
-              <p>{data.site.siteMetadata.address}</p>
+              <p>{data.sanitySettings.phone}</p>
+              <p>{data.sanitySettings.email}</p>
+              <p>{data.sanitySettings.address}</p>
               <a
-                href={`https://twitter.com/${data.site.siteMetadata.twitterUsername}`}
+                href={`https://twitter.com/${data.sanitySettings.twitterUsername}`}
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -45,7 +43,7 @@ function Contact() {
               </a>
               <br />
               <a
-                href={`https://facebook.com/${data.site.siteMetadata.facebookUsername}`}
+                href={`https://facebook.com/${data.sanitySettings.facebookUsername}`}
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -54,7 +52,7 @@ function Contact() {
               <br />
               <a
                 rel="noopener noreferrer"
-                href={`https://instagram.com/${data.site.siteMetadata.instagramUsername}`}
+                href={`https://instagram.com/${data.sanitySettings.instagramUsername}`}
                 target="_blank"
               >
                 Instagram
@@ -63,8 +61,8 @@ function Contact() {
           </Box>
           <Box m={[2, 3]} width={[1, 2 / 3]}>
             <iframe
-              title={`google map of ${data.site.siteMetadata.address}`}
-              src={data.site.siteMetadata.mapUrl}
+              title={`google map of ${data.sanitySettings.address}`}
+              src={data.sanitySettings.mapUrl}
               width="100%"
               height="450"
               frameBorder="0"

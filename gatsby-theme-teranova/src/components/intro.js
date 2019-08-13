@@ -1,6 +1,5 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
 import styled from '@emotion/styled';
 import Container from './container';
 import BackgroundImage from 'gatsby-background-image';
@@ -36,14 +35,13 @@ const Banner = styled.section`
 function Intro() {
   const data = useStaticQuery(graphql`
     {
-      mdx(frontmatter: { type: { eq: "intro" } }) {
-        body
-        frontmatter {
-          img {
-            childImageSharp {
-              fluid {
-                ...GatsbyImageSharpFluid
-              }
+      sanityInto {
+        heading
+        _rawDescription
+        image {
+          asset {
+            fluid {
+              ...GatsbySanityImageFluid
             }
           }
         }
@@ -52,7 +50,7 @@ function Intro() {
   `);
   const backgroundFluidImageStack = [
     theme.colors.primaryGradient,
-    data.mdx.frontmatter.img.childImageSharp.fluid,
+    data.sanityInto.image.asset.fluid,
   ];
   return (
     <Banner id="intro">
@@ -63,7 +61,8 @@ function Intro() {
       >
         <Container>
           <div className="banner-content">
-            <MDXRenderer>{data.mdx.body}</MDXRenderer>
+            <h2>{data.sanityInto.heading}</h2>
+            <p>{data.sanityInto._rawDescription[0].children[0].text}</p>
           </div>
         </Container>
       </BackgroundImage>

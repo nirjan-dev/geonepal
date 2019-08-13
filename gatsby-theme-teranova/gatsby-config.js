@@ -1,7 +1,6 @@
-const config = require('./data');
 module.exports = ({ headingFont = 'Vollkorn', bodyFont = 'Roboto' }) => ({
   siteMetadata: {
-    ...config,
+    siteUrl: 'https://geo-nepal.com',
   },
   plugins: [
     {
@@ -9,13 +8,6 @@ module.exports = ({ headingFont = 'Vollkorn', bodyFont = 'Roboto' }) => ({
       options: {
         name: `pages`,
         path: `${__dirname}/src/pages/`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `data`,
-        path: `${__dirname}/data/`,
       },
     },
 
@@ -49,14 +41,15 @@ module.exports = ({ headingFont = 'Vollkorn', bodyFont = 'Roboto' }) => ({
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: config.title,
-        short_name: config.shortName,
-        description: config.description,
-        start_url: config.pathPrefix,
-        background_color: config.backgroundColor,
-        theme_color: config.themeColor,
+        name: 'Geo Nepal',
+        short_name: 'Geo Nepal',
+        description:
+          'GeoNepal Engineering consultancy Pvt Ltd is a service-oriented company. GeoNepal works in the field of surveying and mapping under the theme of digital worker and modern technologies .We provide the Consulting service in the field of survey and Information Technology (I.T) which may include Spatial Data solutions, Digital topographic Mapping and G.I.S. ,Cadastral survey ,Town-planning survey, Remote Sensing ,Photogrammetry, Geodesy, Land Valuation ,GNSS ,Land use mapping and development along with Web-GIS , Geoportal and Software development.',
+        start_url: '/',
+        background_color: '#F9F9F9',
+        theme_color: '#FFD700',
         display: 'standalone',
-        icon: config.favicon,
+        icon: 'static/images/favicon.png',
       },
     },
     `gatsby-plugin-offline`,
@@ -65,7 +58,7 @@ module.exports = ({ headingFont = 'Vollkorn', bodyFont = 'Roboto' }) => ({
       options: {
         // You can add multiple tracking ids and a pageview event will be fired for all of them.
         trackingIds: [
-          config.trackingId, // Google Analytics / GA
+          'UA-135638651-2', // Google Analytics / GA
         ],
         // This object gets passed directly to the gtag config command
         // This config will be shared across all trackingIds
@@ -80,6 +73,17 @@ module.exports = ({ headingFont = 'Vollkorn', bodyFont = 'Roboto' }) => ({
           // Setting this parameter is also optional
           respectDNT: true,
         },
+      },
+    },
+    {
+      resolve: 'gatsby-source-sanity',
+      options: {
+        projectId: 's3vn5bjx',
+        dataset: 'production',
+        // a token with read permissions is required
+        // if you have a private dataset
+        token:
+          'sk01FfE41IAObiyfqGJrb3F1F7qr0EYxjLDJCY9M26HSsd0Vn5IAUBghkNLQZPM4TSCv35RbGV1dGjfbctr0m2gUUBmmLKhTXGuKXxeXzWgNvOTxQSaBpMBPunUviU1e1sWngWM0CZgBl3vwAenDTCkQtF21jSe7h6H8o5ZYUp2dBBVz0qvf',
       },
     },
   ],

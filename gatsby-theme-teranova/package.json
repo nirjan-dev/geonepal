@@ -30,6 +30,7 @@
     "gatsby-plugin-sitemap": "^2.2.5",
     "gatsby-plugin-theme-ui": "^0.2.18",
     "gatsby-source-filesystem": "^2.1.7",
+    "gatsby-source-sanity": "^5.0.2",
     "gatsby-transformer-sharp": "^2.2.5",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",

@@ -6,20 +6,18 @@ const SEO = ({ title, description, image, pathname, article }) => (
   <StaticQuery
     query={query}
     render={({
-      site: {
-        siteMetadata: {
-          defaultTitle,
-          defaultDescription,
-          siteUrl,
-          defaultImage,
-          twitterUsername,
-        },
+      sanitySettings: {
+        defaultTitle,
+        defaultDescription,
+        siteUrl,
+        defaultImage,
+        twitterUsername,
       },
     }) => {
       const seo = {
         title: title || defaultTitle,
-        description: description || defaultDescription,
-        image: `${siteUrl}${image || defaultImage}`,
+        description: description || defaultDescription[0].children[0].text,
+        image: image || defaultImage.asset.url,
         url: `${siteUrl}${pathname || '/'}`,
       };
       return (
@@ -59,14 +57,16 @@ const SEO = ({ title, description, image, pathname, article }) => (
 export default SEO;
 const query = graphql`
   query SEO {
-    site {
-      siteMetadata {
-        defaultTitle: title
-        defaultDescription: description
-        siteUrl: url
-        defaultImage: image
-        twitterUsername
+    sanitySettings {
+      defaultTitle: title
+      defaultDescription: _rawDescription
+      siteUrl: url
+      defaultImage: image {
+        asset {
+          url
+        }
       }
+      twitterUsername
     }
   }
 `;

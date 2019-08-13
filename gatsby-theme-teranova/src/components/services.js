@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Heading from './heading';
 import { graphql, useStaticQuery } from 'gatsby';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Flex, Box } from '@rebass/grid/emotion';
 import Container from './container';
 import Service from './service';
@@ -16,12 +15,10 @@ const ServicesSection = styled.section`
 function Services() {
   const data = useStaticQuery(graphql`
     {
-      allMdx(filter: { frontmatter: { type: { eq: "service" } } }) {
+      allSanityServices {
         nodes {
-          frontmatter {
-            title
-          }
-          body
+          title
+          _rawDescription
         }
       }
     }
@@ -31,12 +28,12 @@ function Services() {
       <Container>
         <Heading>Our Services</Heading>
         <Flex flexWrap={['wrap', 'wrap', 'nowrap']}>
-          {data.allMdx.nodes.map(service => {
+          {data.allSanityServices.nodes.map(service => {
             return (
               <Box p={[2, 2, 3]} width={[1, 1 / 2, 1 / 4]}>
                 <Service>
-                  <h4 className="title">{service.frontmatter.title}</h4>
-                  <MDXRenderer>{service.body}</MDXRenderer>
+                  <h4 className="title">{service.title}</h4>
+                  {service._rawDescription[0].children[0].text}
                 </Service>
               </Box>
             );

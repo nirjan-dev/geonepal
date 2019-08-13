@@ -1,19 +1,24 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useStaticQuery, graphql } from 'gatsby';
+import Img from 'gatsby-image';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
-const StyledImage = styled.img`
-  margin: 0.8rem;
+const StyledImage = styled(Img)`
+  margin: 0.3rem;
   max-width: 100%;
 `;
 
 function NavBrand() {
   const data = useStaticQuery(graphql`
     {
-      site {
-        siteMetadata {
-          logo
-          title
+      sanitySettings {
+        title
+        logo {
+          asset {
+            fluid {
+              ...GatsbySanityImageFluid
+            }
+          }
         }
       }
     }
@@ -26,11 +31,11 @@ function NavBrand() {
         aria-hidden="true"
         className="hidden"
       >
-        {data.site.siteMetadata.title}
+        {data.sanitySettings.title}
       </h1>
       <StyledImage
-        src={data.site.siteMetadata.logo}
-        alt={data.site.siteMetadata.title}
+        fluid={data.sanitySettings.logo.asset.fluid}
+        alt={data.sanitySettings.title}
       />
     </AnchorLink>
   );

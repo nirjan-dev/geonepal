@@ -3,7 +3,6 @@ import Heading from './heading';
 import styled from '@emotion/styled';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Flex, Box } from '@rebass/grid/emotion';
 import Container from './container';
 const AboutSection = styled.section`
@@ -20,15 +19,13 @@ const AboutSection = styled.section`
 function About() {
   const data = useStaticQuery(graphql`
     {
-      mdx(frontmatter: { type: { eq: "about" } }) {
-        body
-        frontmatter {
-          title
-          img {
-            childImageSharp {
-              fluid {
-                ...GatsbyImageSharpFluid
-              }
+      sanityAbout {
+        title
+        _rawDescription
+        image {
+          asset {
+            fluid {
+              ...GatsbySanityImageFluid
             }
           }
         }
@@ -38,18 +35,15 @@ function About() {
   return (
     <AboutSection id="about">
       <Container>
-        <Heading>{data.mdx.frontmatter.title}</Heading>
+        <Heading>{data.sanityAbout.title}</Heading>
         <Flex flexWrap={['wrap', 'nowrap']}>
           <Box m={[2, 3]} width={[1, 1 / 2, 2 / 3]}>
             <div className="about-content">
-              <MDXRenderer>{data.mdx.body}</MDXRenderer>
+              <p>{data.sanityAbout._rawDescription[0].children[0].text}</p>
             </div>
           </Box>
           <Box m={[2, 3]} width={[1, 1 / 2, 1 / 3]}>
-            <Img
-              fluid={data.mdx.frontmatter.img.childImageSharp.fluid}
-              fadeIn={true}
-            />
+            <Img fluid={data.sanityAbout.image.asset.fluid} fadeIn={true} />
           </Box>
         </Flex>
       </Container>
