@@ -27,7 +27,7 @@ function Services() {
     <ServicesSection id="services">
       <Container>
         <Heading>Our Services</Heading>
-        <Flex flexWrap={['wrap', 'wrap', 'nowrap']}>
+        <Flex flexWrap={['wrap']}>
           {data.allSanityServices.nodes.map(service => {
             return (
               <Box p={[2, 2, 3]} width={[1, 1 / 2, 1 / 4]}>
